@@ -17,4 +17,8 @@ const createIdea = async (newIdea: { title: string; summary: string; description
   return res.data;
 }
 
-export { fetchIdeas, fetchIdea, createIdea }
+const deleteIdea = async (ideaId: string): Promise<void> => {
+  await api.delete(`/ideas/${ideaId}`);
+}
+
+export { fetchIdeas, fetchIdea, createIdea, deleteIdea }
