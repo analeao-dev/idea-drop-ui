@@ -30,7 +30,10 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
 	const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
-	const latestIdeas = ideas.slice(0, 3);
+	const latestIdeas = [...ideas]
+		.sort((a, b) => Number(new Date(b.createdAt).getTime()) - Number(new Date(a.createdAt)))
+		.slice(0, 3);
+
 	return (
 		<div className='flex flex-col md:flex-row items-start justify-between gap-10 p-6 text-blue-600'>
 			<div className='flex flex-col items-start gap-4'>
