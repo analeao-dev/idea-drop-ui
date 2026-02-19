@@ -29,4 +29,14 @@ const logoutUser = async () => {
     }
 }
 
-export { registerUser, loginUser, logoutUser }
+const refreshToken = async () => {
+    try {
+        const res = await api.post('/auth/refresh')
+        return res.data
+    } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to refresh token';
+        throw new Error(message);
+    }
+}
+
+export { registerUser, loginUser, logoutUser, refreshToken }
