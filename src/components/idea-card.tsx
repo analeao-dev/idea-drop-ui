@@ -15,10 +15,10 @@ const IdeaCard = ({ idea, button = true }: IdeaCardProps) => {
 	});
 
 	return (
-		<div key={idea.id} className='border border-gray-300 rounded-lg shadow p-4 bg-white'>
+		<div key={idea._id} className='border border-gray-300 rounded-lg shadow p-4 bg-white'>
 			<h3 className='text-lg font-bold text-gray-900'>{idea.title}</h3>
 			<p className='text-gray-600 mb-2'>{idea.summary}.</p>
-			<Link to='/ideas/$ideaId' params={{ ideaId: idea.id }} className={linkClasses}>
+			<Link to='/ideas/$ideaId' params={{ ideaId: idea._id }} className={linkClasses}>
 				{button ? 'View Idea' : 'Read More →'}
 			</Link>
 		</div>

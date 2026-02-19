@@ -6,8 +6,8 @@ import { Lightbulb } from 'lucide-react';
 
 const ideasQueryOptions = () =>
 	queryOptions({
-		queryKey: ['ideas'],
-		queryFn: () => fetchIdeas(),
+		queryKey: ['ideas', { limit: 3 }],
+		queryFn: () => fetchIdeas(3),
 	});
 
 export const Route = createFileRoute('/')({
@@ -30,9 +30,6 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
 	const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
-	const latestIdeas = [...ideas]
-		.sort((a, b) => Number(new Date(b.createdAt).getTime()) - Number(new Date(a.createdAt)))
-		.slice(0, 3);
 
 	return (
 		<div className='flex flex-col md:flex-row items-start justify-between gap-10 p-6 text-blue-600'>
@@ -47,8 +44,8 @@ function HomePage() {
 			<section className='flex-1'>
 				<h2 className='text-2xl font-semibold mb-4 text-gray-800'>Latest Ideas</h2>
 				<ul className='space-y-6'>
-					{latestIdeas.map((idea) => (
-						<IdeaCard key={idea.id} idea={idea} button={false} />
+					{ideas.map((idea) => (
+						<IdeaCard key={idea._id} idea={idea} button={false} />
 					))}
 				</ul>
 
