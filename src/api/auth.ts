@@ -10,4 +10,14 @@ const registerUser = async ({ name, email, password }: { name: string, email: st
     }
 }
 
-export { registerUser }
+const loginUser = async (credentials: { email: string, password: string }) => {
+    try {
+        const res = await api.post('/auth/login', credentials)
+        return res.data
+    } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to login user';
+        throw new Error(message);
+    }
+}   
+
+export { registerUser, loginUser }
