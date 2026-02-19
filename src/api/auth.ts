@@ -18,6 +18,15 @@ const loginUser = async (credentials: { email: string, password: string }) => {
         const message = err instanceof Error ? err.message : 'Failed to login user';
         throw new Error(message);
     }
-}   
+}
 
-export { registerUser, loginUser }
+const logoutUser = async () => {
+    try {
+        await api.post('/auth/logout')
+    } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to logout user';
+        throw new Error(message);
+    }
+}
+
+export { registerUser, loginUser, logoutUser }
