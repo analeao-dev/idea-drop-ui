@@ -1,4 +1,5 @@
 import { refreshToken } from "@/api/auth";
+import { setStoredAccessToken } from "@/lib/authToken";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextType = {
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 const { accessToken: newToken, user } = await refreshToken();
                 setAccessToken(newToken);
                 setUser(user);
+                setStoredAccessToken(newToken);
             } catch (err: any) {
                 console.log('Failed to refresh token:', err);
             }
@@ -34,6 +36,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         loadAuth();
     }, []);
+
+    useEffect(() => {
+        setStoredAccessToken(accessToken);
+    }, [accessToken]);
 
     return (
         <AuthContext.Provider value={value}>
